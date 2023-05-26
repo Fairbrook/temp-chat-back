@@ -1,0 +1,29 @@
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator prisma-client-js {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id       String @id @map("_id")
+    username String
+    email    String
+}
+
+model Message {
+    id      String   @id @map("_id")
+    sender  String   @db.ObjectId()
+    reciver String   @db.ObjectId()
+    date    DateTime
+    message String
+}
+
+model Session {
+    id        String   @id @map("_id")
+    sid       String   @unique
+    data      String
+    expiresAt DateTime
+}
